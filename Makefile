@@ -3,6 +3,10 @@ sdkdir := $(sdkdir:/=)
 
 MAKEFILE_DIR=$(sdkdir)/scripts
 
+######### New SDK #########
+include $(MAKEFILE_DIR)/staging/Makefile
+######### New SDK #########
+
 # For SDK build ENV, it should be the first.
 include $(MAKEFILE_DIR)/sdk_env.mk
 
@@ -64,8 +68,11 @@ include $(MAKEFILE_DIR)/firmware_u-boot.mk
 
 include $(MAKEFILE_DIR)/kernel_linux.mk
 
+ifeq ($(CONFIG_BUILD_BUILDROOT_CROSS_COMPILE),y)
+## We need it for buildroot cross compiler
 -include $(initramfs).d
+endif
 
 include $(MAKEFILE_DIR)/virtual_test.mk
 
-#-include $(MAKEFILE_DIR)/debug.mk
+-include $(MAKEFILE_DIR)/debug.mk
