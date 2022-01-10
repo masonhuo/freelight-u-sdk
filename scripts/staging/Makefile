@@ -31,6 +31,7 @@ MAIN_CONFIG=$(SDK_STAGING_CONFIGS_DIR)/main.config
 
 ## Common/Upstream
 -include $(MAIN_CONFIG)
+SHELL = /bin/bash
 ## RISC-V dev boards
 ifeq ($(CONFIG_VISIONFIVE_V1),y)
 BOARD_NAME=visionfive_v1

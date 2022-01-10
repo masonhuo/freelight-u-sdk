@@ -3,7 +3,7 @@ BUILD_HOST_OS = $(shell lsb_release -i | awk '{print $$3}')
 
 ifeq ($(BUILD_HOST_OS), Fedora)
 	PKG_CMD = yum
-	CONFIG_DEPENDENT_PACKAGES = whiptail
+	CONFIG_DEPENDENT_PACKAGES = newt
 	TOOLCHAIN_DEPENDENT_PACKAGES = 
 	ACPI_DEPENDENT_PACKAGES = acpica-tools
 	UEFI_DEPENDENT_PACKAGES = libuuid-devel
