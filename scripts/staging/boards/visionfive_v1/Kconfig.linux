@@ -31,16 +31,20 @@ config LINUX_GIT_LBRANCH
 
 endif
 
+config LINUX_BUILD_TARGET
+	string "Linux kernel defconfig name"
+	default "starfive_jh7100_fedora"
+
 config LINUX_INSTALL_PATH
-	string "Linux kernel Image/vmlinuz... install path "
+	string "Linux kernel Image/vmlinuz... install path"
 	default "rootfs/boot"
 
 config LINUX_INSTALL_MOD_PATH
-	string "Linux kernel modules install path "
+	string "Linux kernel modules install path"
 	default "rootfs"
 
 config LINUX_INSTALL_DTBS_PATH
-	string "Linux kernel dtbs install path "
+	string "Linux kernel dtbs install path"
 	default "rootfs/dtb"
 
 endmenu

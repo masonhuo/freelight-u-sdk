@@ -49,7 +49,7 @@ include $(MK_DIR)/common.mk
 include $(MK_COMPONENTS_DIR)/opensbi.mk
 include $(MK_COMPONENTS_DIR)/u-boot.mk
 #include $(MK_COMPONENTS_DIR)/grub.mk
-#include $(MK_COMPONENTS_DIR)/linux.mk
+include $(MK_COMPONENTS_DIR)/linux.mk
 #include $(MK_COMPONENTS_DIR)/busybox.mk
 
 ## distros

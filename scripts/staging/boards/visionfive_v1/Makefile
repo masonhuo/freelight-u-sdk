@@ -5,6 +5,5 @@
 
 include $(MK_BOARDS_DIR)/$(BOARD_NAME)/u-boot.mk
 include $(MK_BOARDS_DIR)/$(BOARD_NAME)/opensbi.mk
-
-#include $(MK_BOARDS_DIR)/$(BOARD_NAME)/linux.mk
+include $(MK_BOARDS_DIR)/$(BOARD_NAME)/linux.mk
 
