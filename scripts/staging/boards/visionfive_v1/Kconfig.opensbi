@@ -31,16 +31,35 @@ config OPENSBI_GIT_LBRANCH
 
 endif
 
+
+choice OPENSBI_PLATFORM
+	bool "platform choice"
+	default OPENSBI_PLATFORM_GENERIC
+
+config OPENSBI_PLATFORM_GENERIC
+	bool "Build generic platform"
+
+config OPENSBI_PLATFORM_SOC
+	bool "Build platform/vendor/<board|soc>"
+
+endchoice
+
+
 config OPENSBI_BUILD_PLATFORM
-	string "The build platform"
-	default "generic"
+	string "Specifies the platform which will be built"
+	default "starfive/jh7100" if OPENSBI_PLATFORM_SOC
+	default "generic" if OPENSBI_PLATFORM_GENERIC
+
+config OPENSBI_BUILD_ARGS
+	string "Specifies the build arguments"
+	default "BUILD_INFO=y"
 
 config OPENSBI_PREBUILD_UBOOT_BIN
 	string "Pre-build U-boot Bin path"
-	default ""
+	default "../../../output/firmware/u-boot_visionfive_v1/u-boot.bin"
 
 config OPENSBI_PREBUILD_DTB
 	string "Pre-build dtb path"
-	default ""
+	default "../../../output/firmware/u-boot_visionfive_v1/u-boot.dtb"
 
 endmenu

@@ -46,7 +46,7 @@ include $(MK_DIR)/common.mk
 ## Components
 #include $(MK_COMPONENTS_DIR)/qemu.mk
 #include $(MK_COMPONENTS_DIR)/uefi.mk
-#include $(MK_COMPONENTS_DIR)/opensbi.mk
+include $(MK_COMPONENTS_DIR)/opensbi.mk
 include $(MK_COMPONENTS_DIR)/u-boot.mk
 #include $(MK_COMPONENTS_DIR)/grub.mk
 #include $(MK_COMPONENTS_DIR)/linux.mk
