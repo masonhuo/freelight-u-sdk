@@ -44,6 +44,9 @@ config OPENSBI_PLATFORM_SOC
 
 endchoice
 
+config OPENSBI_BUILD_IN_TMPFS
+	bool "Build OpenSBI in tmpfs(in RAM)"
+	default n
 
 config OPENSBI_BUILD_PLATFORM
 	string "Specifies the platform which will be built"

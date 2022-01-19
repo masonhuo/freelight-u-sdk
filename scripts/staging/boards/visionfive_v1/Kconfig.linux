@@ -31,6 +31,10 @@ config LINUX_GIT_LBRANCH
 
 endif
 
+config LINUX_BUILD_IN_TMPFS
+	bool "Build Linux kernel in tmpfs(in RAM)"
+	default n
+
 config LINUX_BUILD_TARGET
 	string "Linux kernel defconfig name"
 	default "starfive_jh7100_fedora"

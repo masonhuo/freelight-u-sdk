@@ -31,6 +31,10 @@ config UBOOT_GIT_LBRANCH
 
 endif
 
+config UBOOT_BUILD_IN_TMPFS
+	bool "Build U-Boot in tmpfs(in RAM)"
+	default n
+
 config UBOOT_BUILD_TARGET
 	string "The target board we will build for"
 	default "starfive_jh7100_visionfive_smode"

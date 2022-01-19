@@ -4,7 +4,11 @@ UBOOT_BUILD_DEPENDENT_PACKAGES=dtc
 
 UBOOT_REPO_DIR=$(CONFIG_UBOOT_REPO_PATH)
 
-UBOOT_SRC_DIR=$(SDK_BUILD_DIR)/firmware/$(UBOOT_NAME)
+ifeq ($(CONFIG_UBOOT_BUILD_IN_TMPFS),y)
+UBOOT_BUILD_IN_TMPFS=/tempfs
+endif
+
+UBOOT_SRC_DIR=$(SDK_BUILD_DIR)$(UBOOT_BUILD_IN_TMPFS)/firmware/$(UBOOT_NAME)
 UBOOT_INSTALL_DIR=$(SDK_OUTPUT_DIR)/firmware/$(UBOOT_NAME)
 
 uboot_update:
@@ -51,12 +55,12 @@ _board_uboot_mkdefconfig:
 #	mv defconfig arch/riscv/configs/starfive_jh7100_starlight_fedora_defconfig
 
 
-_board_uboot_dtb:
+_board_uboot_build_dtb:
 	$(call build_target, $(_BOARD_UBOOT_SRC_DIR), \
 			      $(CROSS_COMPILE_RV64_ENV), \
 			      u-boot.dtb)
 
-_board_uboot_dtb_install:
+_board_uboot_install_dtb:
 	$(call install_bin, \
 		$(_BOARD_UBOOT_SRC_DIR)/u-boot.dtb, \
 		$(_BOARD_UBOOT_INSTALL_DIR))

@@ -1,7 +1,12 @@
 LINUX_NAME=linux
 
 LINUX_REPO_DIR=$(CONFIG_LINUX_REPO_PATH)
-LINUX_SRC_DIR=$(SDK_BUILD_DIR)/kernel/$(LINUX_NAME)
+
+ifeq ($(CONFIG_LINUX_BUILD_IN_TMPFS),y)
+LINUX_BUILD_IN_TMPFS=/tempfs
+endif
+
+LINUX_SRC_DIR=$(SDK_BUILD_DIR)$(LINUX_BUILD_IN_TMPFS)/kernel/$(LINUX_NAME)
 LINUX_INSTALL_DIR=$(SDK_OUTPUT_DIR)/kernel/$(LINUX_NAME)
 
 linux_update:
@@ -74,18 +79,18 @@ _board_linux_mkdefconfig:
 #	mv defconfig arch/riscv/configs/starfive_jh7100_visionfive_fedora_defconfig
 
 
-_board_linux_dtbs:
+_board_linux_build_dtbs:
 	$(call build_target, $(_BOARD_LINUX_SRC_DIR), \
 			      $(CROSS_COMPILE_RV64_ENV), \
 			      dtbs)
 
-_board_linux_dtb_install:
+_board_linux_install_dtbs:
 	$(call linux_install_dtbs, \
 		$(_BOARD_LINUX_SRC_DIR), \
 		$(CROSS_COMPILE_RV64_ENV), \
 		$(_BOARD_LINUX_INSTALL_DIR))
 
-_board_linux_build:
+_board_linux_build_all:
 	$(call build_target_log, $(_BOARD_LINUX_SRC_DIR), \
 				  $(CROSS_COMPILE_RV64_ENV),)
 
@@ -106,20 +111,8 @@ _board_linux_install_modules:
 		$(CROSS_COMPILE_RV64_ENV), \
 		$(_BOARD_LINUX_INSTALL_DIR))
 
-_board_linux_install_all:
-	$(call linux_install_zimage, \
-		$(_BOARD_LINUX_SRC_DIR), \
-		$(CROSS_COMPILE_RV64_ENV), \
-		$(_BOARD_LINUX_INSTALL_DIR))
-	$(call linux_install_modules, \
-		$(_BOARD_LINUX_SRC_DIR), \
-		$(CROSS_COMPILE_RV64_ENV), \
-		$(_BOARD_LINUX_INSTALL_DIR))
-	$(call linux_install_dtbs, \
-		$(_BOARD_LINUX_SRC_DIR), \
-		$(CROSS_COMPILE_RV64_ENV), \
-		$(_BOARD_LINUX_INSTALL_DIR),)
+_board_linux_install_all: _board_linux_install_zimage _board_linux_install_modules _board_linux_install_dtbs
 
-_board_linux_all: _board_linux_checkout _board_linux_defconfig _board_linux_menuconfig _board_linux_build _board_linux_install
+_board_linux_all: _board_linux_checkout _board_linux_defconfig _board_linux_menuconfig _board_linux_build _board_linux_install_all
 
 

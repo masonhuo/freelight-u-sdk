@@ -1,20 +1,14 @@
 SDK_INSTALL_DIR=$(sdkdir)
 REPO_DIR=$(sdkdir)/src
-#if 
-_SDK_SRC_DIR=work
-#else
-SDK_BUILD_DIR=$(SDK_INSTALL_DIR)/$(_SDK_SRC_DIR)
-
-# The installation directory of the SDK.
-SDK_BIN_DIR=$(SDK_INSTALL_DIR)/bin
+ 
+SDK_BUILD_DIR=$(SDK_INSTALL_DIR)/work
+#SDK_BIN_DIR=$(SDK_INSTALL_DIR)/bin
 SDK_ETC_DIR=$(SDK_INSTALL_DIR)/conf
 SDK_LOG_DIR=$(SDK_INSTALL_DIR)/logs
 SDK_OUTPUT_DIR=$(SDK_INSTALL_DIR)/output
 
 #SDK_IMAGES_DIR=$(SDK_PREBUILD_DIR)/images
 #SDK_TEMPLATES_DIR=$(SDK_INSTALL_DIR)/templates
-#SDK_LAVA_DIR=$(SDK_INSTALL_DIR)/LAVA
-#SDK_TEMP_CONFIG=$(SDK_INSTALL_DIR)/tekkaman_sdk.temp
 
 MK_DIR=$(MAKEFILE_DIR)/staging
 
@@ -29,14 +23,20 @@ SDK_STAGING_CONFIGS_DIR=$(SDK_ETC_DIR)/staging
 
 MAIN_CONFIG=$(SDK_STAGING_CONFIGS_DIR)/main.config
 
-## Common/Upstream
+## main config file
 -include $(MAIN_CONFIG)
+## make sure we are using bash for "make"
 SHELL = /bin/bash
+
 ## RISC-V dev boards
 ifeq ($(CONFIG_VISIONFIVE_V1),y)
 BOARD_NAME=visionfive_v1
 endif
+#ifeq ($(CONFIG_VISIONFIVE_Vx),y)
+#BOARD_NAME=visionfive_vx
+#endif
 
+## load config file for a specific  development board
 CONFIG_FILE=$(SDK_STAGING_CONFIGS_DIR)/$(shell echo $(CONFIG_CONFIG_FILE).config)
 -include $(CONFIG_FILE)
 
@@ -63,7 +63,7 @@ main_setup:
 	export MENUCONFIG_STYLE="aquatic selection=fg:red,bg:green"; \
 	$(KCONDIFLIB_DIR)/menuconfig.py $(MK_DIR)/Kconfig
 
-ifneq ($(BOARD_NAME),)
+ifneq ($(BOARD_NAME),"")
 include $(MK_BOARDS_DIR)/$(BOARD_NAME)/Makefile
 else
 $(warning Missing board configuration, please run 'make main_setup' first!)
