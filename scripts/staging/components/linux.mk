@@ -113,6 +113,6 @@ _board_linux_install_modules:
 
 _board_linux_install_all: _board_linux_install_zimage _board_linux_install_modules _board_linux_install_dtbs
 
-_board_linux_all: _board_linux_checkout _board_linux_defconfig _board_linux_menuconfig _board_linux_build _board_linux_install_all
+_board_linux_all: _board_linux_checkout _board_linux_defconfig _board_linux_menuconfig _board_linux_build_all _board_linux_install_all
 
 
