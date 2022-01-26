@@ -10,3 +10,5 @@ source "scripts/staging/boards/visionfive_v1/Kconfig.opensbi"
 
 source "scripts/staging/boards/visionfive_v1/Kconfig.linux"
 
+source "scripts/staging/boards/visionfive_v1/Kconfig.fit"
+

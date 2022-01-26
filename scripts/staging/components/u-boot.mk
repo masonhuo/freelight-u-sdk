@@ -70,6 +70,11 @@ _board_uboot_build:
 				  $(CROSS_COMPILE_RV64_ENV), \
 				  u-boot.bin u-boot.dtb)
 
+_board_uboot_build_tools:
+	$(call build_target_log, $(_BOARD_UBOOT_SRC_DIR), \
+				  $(CROSS_COMPILE_RV64_ENV), \
+				  tools)
+
 _board_uboot_clean:
 	$(call build_target, $(_BOARD_UBOOT_SRC_DIR), \
 			       $(CROSS_COMPILE_RV64_ENV), \
